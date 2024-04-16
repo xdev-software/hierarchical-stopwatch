@@ -5,17 +5,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>software.xdev</groupId>
-	<artifactId>standard-maven-template</artifactId>
+	<artifactId>hierarchical-in-code-profiler</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>standard-maven-template</name>
-	<description>standard-maven-template</description>
-	<url>https://github.com/xdev-software/standard-maven-template</url>
+	<name>hierarchical-in-code-profiler</name>
+	<description>hierarchical-in-code-profiler</description>
+	<url>https://github.com/xdev-software/hierarchical-in-code-profiler</url>
 
 	<scm>
-		<url>https://github.com/xdev-software/standard-maven-template</url>
-		<connection>scm:git:https://github.com/xdev-software/standard-maven-template.git</connection>
+		<url>https://github.com/xdev-software/hierarchical-in-code-profiler</url>
+		<connection>scm:git:https://github.com/xdev-software/hierarchical-in-code-profiler.git</connection>
 	</scm>
 
 	<inceptionYear>2023</inceptionYear>
