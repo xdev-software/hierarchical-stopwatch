@@ -5,20 +5,20 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>software.xdev</groupId>
-	<artifactId>standard-maven-template</artifactId>
+	<artifactId>hierarchical-stopwatch</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>standard-maven-template</name>
-	<description>standard-maven-template</description>
-	<url>https://github.com/xdev-software/standard-maven-template</url>
+	<name>hierarchical-stopwatch</name>
+	<description>hierarchical-stopwatch</description>
+	<url>https://github.com/xdev-software/hierarchical-stopwatch</url>
 
 	<scm>
-		<url>https://github.com/xdev-software/standard-maven-template</url>
-		<connection>scm:git:https://github.com/xdev-software/standard-maven-template.git</connection>
+		<url>https://github.com/xdev-software/hierarchical-stopwatch</url>
+		<connection>scm:git:https://github.com/xdev-software/hierarchical-stopwatch.git</connection>
 	</scm>
 
-	<inceptionYear>2023</inceptionYear>
+	<inceptionYear>2024</inceptionYear>
 
 	<organization>
 		<name>XDEV Software</name>
@@ -83,6 +83,14 @@
 			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.14.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<pluginManagement>
@@ -182,7 +190,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>3.2.2</version>
+						<version>3.2.3</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
