@@ -18,7 +18,7 @@
 		<connection>scm:git:https://github.com/xdev-software/hierarchical-in-code-profiler.git</connection>
 	</scm>
 
-	<inceptionYear>2023</inceptionYear>
+	<inceptionYear>2024</inceptionYear>
 
 	<organization>
 		<name>XDEV Software</name>
@@ -83,6 +83,14 @@
 			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.14.0</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<pluginManagement>
