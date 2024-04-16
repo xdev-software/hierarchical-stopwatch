@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package software.xdev.profiling;
+package software.xdev.time;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,7 @@ import org.apache.commons.lang3.time.StopWatch;
 
 
 /**
- * Presents a hierarchical Profiler based on StopWatches
+ * Presents a hierarchical StopWatch
  * <p>
  * Example:
  * <pre>
@@ -50,7 +50,7 @@ import org.apache.commons.lang3.time.StopWatch;
  * </pre>
  * </p>
  */
-public class InCodeProfiler
+public class HierarchicalStopWatch
 {
 	protected static final double NANOS_TO_MILLIS_FACTOR = 1000000.0;
 	
@@ -60,9 +60,9 @@ public class InCodeProfiler
 	
 	protected final StopWatch sw = new StopWatch();
 	
-	protected final List<InCodeProfiler> nestedProfilers = Collections.synchronizedList(new ArrayList<>());
+	protected final List<HierarchicalStopWatch> nestedProfilers = Collections.synchronizedList(new ArrayList<>());
 	
-	public InCodeProfiler(final String taskName, final boolean async, final boolean enabled)
+	public HierarchicalStopWatch(final String taskName, final boolean async, final boolean enabled)
 	{
 		super();
 		
@@ -71,12 +71,12 @@ public class InCodeProfiler
 		this.enabled = enabled;
 	}
 	
-	public InCodeProfiler(final String taskName, final boolean async)
+	public HierarchicalStopWatch(final String taskName, final boolean async)
 	{
 		this(taskName, async, true);
 	}
 	
-	public InCodeProfiler(final String taskName)
+	public HierarchicalStopWatch(final String taskName)
 	{
 		this(taskName, false);
 	}
@@ -129,13 +129,13 @@ public class InCodeProfiler
 	public void stopAll()
 	{
 		this.stop();
-		for(final InCodeProfiler hsw : this.nestedProfilers)
+		for(final HierarchicalStopWatch hsw : this.nestedProfilers)
 		{
 			hsw.stopAll();
 		}
 	}
 	
-	protected void addNested(final InCodeProfiler nested, final boolean start)
+	protected void addNested(final HierarchicalStopWatch nested, final boolean start)
 	{
 		if(!this.isEnabled())
 		{
@@ -153,9 +153,9 @@ public class InCodeProfiler
 	/**
 	 * Creates a new nested profiler
 	 */
-	public InCodeProfiler nested(final String taskName, final boolean async)
+	public HierarchicalStopWatch nested(final String taskName, final boolean async)
 	{
-		final InCodeProfiler nested = new InCodeProfiler(taskName, async, this.isEnabled());
+		final HierarchicalStopWatch nested = new HierarchicalStopWatch(taskName, async, this.isEnabled());
 		
 		this.addNested(nested, true);
 		
@@ -165,7 +165,7 @@ public class InCodeProfiler
 	/**
 	 * Creates a new nested profiler
 	 */
-	public InCodeProfiler nested(final String taskName)
+	public HierarchicalStopWatch nested(final String taskName)
 	{
 		return this.nested(taskName, false);
 	}
@@ -173,9 +173,10 @@ public class InCodeProfiler
 	/**
 	 * Creates a new nested {@link AutoCloseable} profiler
 	 */
-	public InCodeProfilerAutoClosable nestedAC(final String taskName, final boolean async)
+	public HierarchicalStopWatchAutoClosable nestedAC(final String taskName, final boolean async)
 	{
-		final InCodeProfilerAutoClosable nested = new InCodeProfilerAutoClosable(taskName, async, this.isEnabled());
+		final HierarchicalStopWatchAutoClosable nested =
+			new HierarchicalStopWatchAutoClosable(taskName, async, this.isEnabled());
 		this.addNested(nested, true);
 		return nested;
 	}
@@ -183,7 +184,7 @@ public class InCodeProfiler
 	/**
 	 * Creates a new nested {@link AutoCloseable} profiler
 	 */
-	public InCodeProfilerAutoClosable nestedAC(final String taskName)
+	public HierarchicalStopWatchAutoClosable nestedAC(final String taskName)
 	{
 		return this.nestedAC(taskName, false);
 	}
@@ -223,17 +224,17 @@ public class InCodeProfiler
 		final long rootNanos,
 		final int hierarchicalPosition)
 	{
-		final Map<String, List<InCodeProfiler>> hierach =
+		final Map<String, List<HierarchicalStopWatch>> hierach =
 			this.nestedProfilers.stream().collect(
 				Collectors.groupingBy(
-					InCodeProfiler::gettaskName,
+					HierarchicalStopWatch::gettaskName,
 					LinkedHashMap::new,
 					Collectors.toList()));
 		
 		final long currentNanos = this.sw.getNanoTime();
 		
 		long leftNanos = currentNanos;
-		for(final Entry<String, List<InCodeProfiler>> entry : hierach.entrySet())
+		for(final Entry<String, List<HierarchicalStopWatch>> entry : hierach.entrySet())
 		{
 			final long groupMinNanos = entry.getValue()
 				.stream()
@@ -263,16 +264,16 @@ public class InCodeProfiler
 				groupMinNanos,
 				groupMaxNanos,
 				groupNestedNanos,
-				entry.getValue().stream().anyMatch(InCodeProfiler::isAsync)).format());
+				entry.getValue().stream().anyMatch(HierarchicalStopWatch::isAsync)).format());
 			
 			final long groupNestedNanosNotAsync = entry.getValue()
 				.stream()
-				.filter(InCodeProfiler::isNotAsync)
+				.filter(HierarchicalStopWatch::isNotAsync)
 				.mapToLong(hsw -> hsw.getStopWatch().getNanoTime())
 				.sum();
 			leftNanos -= groupNestedNanosNotAsync;
 			
-			for(final InCodeProfiler hsw : entry.getValue())
+			for(final HierarchicalStopWatch hsw : entry.getValue())
 			{
 				hsw.addNestedToStrBuilder(sb, rootNanos, hierarchicalPosition + 1);
 			}
@@ -290,9 +291,9 @@ public class InCodeProfiler
 		}
 	}
 	
-	public static InCodeProfiler createStarted(final String taskName)
+	public static HierarchicalStopWatch createStarted(final String taskName)
 	{
-		final InCodeProfiler sw = new InCodeProfiler(taskName);
+		final HierarchicalStopWatch sw = new HierarchicalStopWatch(taskName);
 		sw.start();
 		return sw;
 	}

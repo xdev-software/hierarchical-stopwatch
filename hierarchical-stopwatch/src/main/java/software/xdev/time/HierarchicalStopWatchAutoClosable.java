@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package software.xdev.profiling;
+package software.xdev.time;
 
 /**
- * Same as {@link InCodeProfiler} but also implements {@link AutoCloseable}
+ * Same as {@link HierarchicalStopWatch} but also implements {@link AutoCloseable}
  *
- * @see InCodeProfiler
+ * @see HierarchicalStopWatch
  */
-public class InCodeProfilerAutoClosable extends InCodeProfiler implements AutoCloseable
+public class HierarchicalStopWatchAutoClosable extends HierarchicalStopWatch implements AutoCloseable
 {
-	public InCodeProfilerAutoClosable(final String taskName)
+	public HierarchicalStopWatchAutoClosable(final String taskName)
 	{
 		super(taskName);
 	}
 	
-	public InCodeProfilerAutoClosable(final String taskName, final boolean async)
+	public HierarchicalStopWatchAutoClosable(final String taskName, final boolean async)
 	{
 		super(taskName, async);
 	}
 	
-	public InCodeProfilerAutoClosable(final String taskName, final boolean async, final boolean enabled)
+	public HierarchicalStopWatchAutoClosable(final String taskName, final boolean async, final boolean enabled)
 	{
 		super(taskName, async, enabled);
 	}
@@ -43,9 +43,9 @@ public class InCodeProfilerAutoClosable extends InCodeProfiler implements AutoCl
 		this.stop();
 	}
 	
-	public static InCodeProfilerAutoClosable createStarted(final String taskName)
+	public static HierarchicalStopWatchAutoClosable createStarted(final String taskName)
 	{
-		final InCodeProfilerAutoClosable sw = new InCodeProfilerAutoClosable(taskName);
+		final HierarchicalStopWatchAutoClosable sw = new HierarchicalStopWatchAutoClosable(taskName);
 		sw.start();
 		return sw;
 	}

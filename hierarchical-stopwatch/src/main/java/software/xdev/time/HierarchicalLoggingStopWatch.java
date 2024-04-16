@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package software.xdev.profiling;
+package software.xdev.time;
 
 import java.util.function.Consumer;
 
 
 /**
- * Same as {@link InCodeProfilerAutoClosable} but with a Consumer that handles
- * {@link InCodeProfiler#getPrettyPrinted()}
+ * Same as {@link HierarchicalStopWatchAutoClosable} but with a Consumer that handles
+ * {@link HierarchicalStopWatch#getPrettyPrinted()}
  *
- * @see InCodeProfilerAutoClosable
+ * @see HierarchicalStopWatchAutoClosable
  */
-public class InCodeLogProfiler extends InCodeProfilerAutoClosable
+public class HierarchicalLoggingStopWatch extends HierarchicalStopWatchAutoClosable
 {
 	protected final Consumer<String> logConsumer;
 	
-	public InCodeLogProfiler(
+	public HierarchicalLoggingStopWatch(
 		final String taskName,
 		final Consumer<String> logConsumer,
 		final boolean async,
@@ -49,18 +49,19 @@ public class InCodeLogProfiler extends InCodeProfilerAutoClosable
 		}
 	}
 	
-	public static InCodeLogProfiler createStarted(
+	public static HierarchicalLoggingStopWatch createStarted(
 		final String taskName,
 		final Consumer<String> logConsumer,
 		final boolean async,
 		final boolean enabled)
 	{
-		final InCodeLogProfiler sw = new InCodeLogProfiler(taskName, logConsumer, async, enabled);
+		final HierarchicalLoggingStopWatch sw = new HierarchicalLoggingStopWatch(taskName, logConsumer, async,
+			enabled);
 		sw.start();
 		return sw;
 	}
 	
-	public static InCodeLogProfiler createStarted(
+	public static HierarchicalLoggingStopWatch createStarted(
 		final String taskname,
 		final Consumer<String> logConsumer,
 		final boolean enabled)

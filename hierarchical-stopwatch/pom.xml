@@ -5,17 +5,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>software.xdev</groupId>
-	<artifactId>hierarchical-in-code-profiler</artifactId>
+	<artifactId>hierarchical-stopwatch</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>hierarchical-in-code-profiler</name>
-	<description>hierarchical-in-code-profiler</description>
-	<url>https://github.com/xdev-software/hierarchical-in-code-profiler</url>
+	<name>hierarchical-stopwatch</name>
+	<description>hierarchical-stopwatch</description>
+	<url>https://github.com/xdev-software/hierarchical-stopwatch</url>
 
 	<scm>
-		<url>https://github.com/xdev-software/hierarchical-in-code-profiler</url>
-		<connection>scm:git:https://github.com/xdev-software/hierarchical-in-code-profiler.git</connection>
+		<url>https://github.com/xdev-software/hierarchical-stopwatch</url>
+		<connection>scm:git:https://github.com/xdev-software/hierarchical-stopwatch.git</connection>
 	</scm>
 
 	<inceptionYear>2024</inceptionYear>
