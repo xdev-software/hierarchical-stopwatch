@@ -5,37 +5,38 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
 import software.xdev.time.HierarchicalLoggingStopWatch;
+import software.xdev.time.HierarchicalStopWatch;
 
 
 public final class Application
 {
 	public static void main(final String[] args)
 	{
-		try(final var profiler = HierarchicalLoggingStopWatch.createStarted(
+		try(final HierarchicalStopWatch dummySw = HierarchicalLoggingStopWatch.createStarted(
 			"Run dummy",
 			System.out::println, // Could also be LOGGER::debug
 			true)) // Could also be LOGGER.isDebugEnabled()
 		{
 			final List<CompletableFuture<Void>> completableFutures;
-			try(final var ignored = profiler.nestedAC("Launch tasks"))
+			try(final HierarchicalStopWatch ignored = dummySw.nested("Launch tasks"))
 			{
 				completableFutures = IntStream.of(1, 2, 3)
 					.mapToObj(i -> CompletableFuture.runAsync(() -> {
-						try(final var process = profiler.nestedAC("Process " + i, true))
+						try(final var processSw = dummySw.nested("Process " + i, true))
 						{
-							try(final var ignore = process.nestedAC("Fetch"))
+							try(final var ignore = processSw.nested("Fetch"))
 							{
 								sleep(5);
 							}
 							
-							try(final var ignore = process.nestedAC("Process"))
+							try(final var ignore = processSw.nested("Process"))
 							{
 								sleep(i * 5);
 							}
 							
 							if(i % 2 == 0)
 							{
-								try(final var ignore = process.nestedAC("Finalize"))
+								try(final var ignore = processSw.nested("Finalize"))
 								{
 									sleep(5);
 								}
@@ -45,7 +46,7 @@ public final class Application
 					.toList();
 			}
 			
-			try(final var ignored = profiler.nestedAC("Wait for tasks"))
+			try(final HierarchicalStopWatch ignore = dummySw.nested("Wait for tasks"))
 			{
 				completableFutures.forEach(CompletableFuture::join);
 			}

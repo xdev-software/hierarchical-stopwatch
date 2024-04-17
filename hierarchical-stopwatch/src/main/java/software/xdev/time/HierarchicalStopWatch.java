@@ -50,7 +50,7 @@ import org.apache.commons.lang3.time.StopWatch;
  * </pre>
  * </p>
  */
-public class HierarchicalStopWatch
+public class HierarchicalStopWatch implements AutoCloseable
 {
 	protected static final double NANOS_TO_MILLIS_FACTOR = 1000000.0;
 	
@@ -123,6 +123,12 @@ public class HierarchicalStopWatch
 		}
 	}
 	
+	@Override
+	public void close()
+	{
+		this.stop();
+	}
+	
 	/**
 	 * Tries to stop all nested profilers
 	 */
@@ -156,9 +162,7 @@ public class HierarchicalStopWatch
 	public HierarchicalStopWatch nested(final String taskName, final boolean async)
 	{
 		final HierarchicalStopWatch nested = new HierarchicalStopWatch(taskName, async, this.isEnabled());
-		
 		this.addNested(nested, true);
-		
 		return nested;
 	}
 	
@@ -168,25 +172,6 @@ public class HierarchicalStopWatch
 	public HierarchicalStopWatch nested(final String taskName)
 	{
 		return this.nested(taskName, false);
-	}
-	
-	/**
-	 * Creates a new nested {@link AutoCloseable} profiler
-	 */
-	public HierarchicalStopWatchAutoClosable nestedAC(final String taskName, final boolean async)
-	{
-		final HierarchicalStopWatchAutoClosable nested =
-			new HierarchicalStopWatchAutoClosable(taskName, async, this.isEnabled());
-		this.addNested(nested, true);
-		return nested;
-	}
-	
-	/**
-	 * Creates a new nested {@link AutoCloseable} profiler
-	 */
-	public HierarchicalStopWatchAutoClosable nestedAC(final String taskName)
-	{
-		return this.nestedAC(taskName, false);
 	}
 	
 	public String getPrettyPrinted()
