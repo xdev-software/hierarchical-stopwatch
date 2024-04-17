@@ -4,7 +4,7 @@
 
 # hierarchical-stopwatch
 
-A hierarchical stopwatch that supports nesting and can be used to track performance across methods and classes. It also supports async.
+A hierarchical Java stopwatch that supports nesting and can be used to track performance across methods and classes. It also supports async.
 
 Example output:
 ```
