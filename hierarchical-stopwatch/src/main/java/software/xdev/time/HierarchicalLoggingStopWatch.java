@@ -19,12 +19,12 @@ import java.util.function.Consumer;
 
 
 /**
- * Same as {@link HierarchicalStopWatchAutoClosable} but with a Consumer that handles
+ * Same as {@link HierarchicalStopWatch} but with a Consumer that handles
  * {@link HierarchicalStopWatch#getPrettyPrinted()}
  *
- * @see HierarchicalStopWatchAutoClosable
+ * @see HierarchicalStopWatch
  */
-public class HierarchicalLoggingStopWatch extends HierarchicalStopWatchAutoClosable
+public class HierarchicalLoggingStopWatch extends HierarchicalStopWatch
 {
 	protected final Consumer<String> logConsumer;
 	
@@ -62,10 +62,10 @@ public class HierarchicalLoggingStopWatch extends HierarchicalStopWatchAutoClosa
 	}
 	
 	public static HierarchicalLoggingStopWatch createStarted(
-		final String taskname,
+		final String taskName,
 		final Consumer<String> logConsumer,
 		final boolean enabled)
 	{
-		return createStarted(taskname, logConsumer, false, enabled);
+		return createStarted(taskName, logConsumer, false, enabled);
 	}
 }
