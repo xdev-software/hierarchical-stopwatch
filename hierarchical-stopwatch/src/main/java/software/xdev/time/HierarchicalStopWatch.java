@@ -181,14 +181,14 @@ public class HierarchicalStopWatch implements AutoCloseable
 			return "";
 		}
 		
-		final StringBuilder sb = new StringBuilder();
-		sb.append(System.lineSeparator());
-		sb.append("-------------------------------");
-		sb.append(System.lineSeparator());
-		sb.append("Root    Parent  Task");
-		sb.append(System.lineSeparator());
-		sb.append("-------------------------------");
-		sb.append(System.lineSeparator());
+		final StringBuilder sb = new StringBuilder(100);
+		sb.append(System.lineSeparator())
+			.append("-------------------------------")
+			.append(System.lineSeparator())
+			.append("Root    Parent  Task")
+			.append(System.lineSeparator())
+			.append("-------------------------------")
+			.append(System.lineSeparator());
 		
 		final long rootNanos = this.sw.getNanoTime();
 		
