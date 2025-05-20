@@ -10,6 +10,7 @@ import software.xdev.time.HierarchicalStopWatch;
 
 public final class Application
 {
+	@SuppressWarnings("java:S106")
 	public static void main(final String[] args)
 	{
 		try(final HierarchicalStopWatch dummySw = HierarchicalLoggingStopWatch.createStarted(
