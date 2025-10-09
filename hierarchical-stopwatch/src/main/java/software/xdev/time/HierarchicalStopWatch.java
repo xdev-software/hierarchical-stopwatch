@@ -81,7 +81,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 		this(taskName, false);
 	}
 	
-	protected String gettaskName()
+	protected String getTaskName()
 	{
 		return this.taskName;
 	}
@@ -174,6 +174,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 		return this.nested(taskName, false);
 	}
 	
+	@SuppressWarnings("PMD.AvoidStringBuilderOrBuffer")
 	public String getPrettyPrinted()
 	{
 		if(!this.isEnabled())
@@ -197,7 +198,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 			rootNanos,
 			0,
 			"-",
-			this.gettaskName(),
+			this.getTaskName(),
 			rootNanos).format());
 		this.addNestedToStrBuilder(sb, rootNanos, 1);
 		
@@ -212,7 +213,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 		final Map<String, List<HierarchicalStopWatch>> hierach =
 			this.nestedProfilers.stream().collect(
 				Collectors.groupingBy(
-					HierarchicalStopWatch::gettaskName,
+					HierarchicalStopWatch::getTaskName,
 					LinkedHashMap::new,
 					Collectors.toList()));
 		
