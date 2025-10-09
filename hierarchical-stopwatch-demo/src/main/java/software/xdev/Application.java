@@ -10,7 +10,7 @@ import software.xdev.time.HierarchicalStopWatch;
 
 public final class Application
 {
-	@SuppressWarnings("java:S106")
+	@SuppressWarnings({"java:S106", "PMD.AvoidCommonPoolForFutureAsync"})
 	public static void main(final String[] args)
 	{
 		try(final HierarchicalStopWatch dummySw = HierarchicalLoggingStopWatch.createStarted(
