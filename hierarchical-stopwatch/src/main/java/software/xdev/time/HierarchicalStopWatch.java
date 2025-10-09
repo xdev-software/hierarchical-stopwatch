@@ -174,6 +174,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 		return this.nested(taskName, false);
 	}
 	
+	@SuppressWarnings("PMD.AvoidStringBuilderOrBuffer")
 	public String getPrettyPrinted()
 	{
 		if(!this.isEnabled())
