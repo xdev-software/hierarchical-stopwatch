@@ -297,7 +297,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 		boolean async
 	)
 	{
-		public TaskEntry(
+		protected TaskEntry(
 			final long rootNanos,
 			final long parentNanos,
 			final int hierarchicalPosition,
@@ -319,7 +319,7 @@ public class HierarchicalStopWatch implements AutoCloseable
 			);
 		}
 		
-		public String format()
+		protected String format()
 		{
 			final String percentFormat = "%6.2f%%";
 			final String asyncPercent = "  ASYNC";
