@@ -81,7 +81,7 @@
 		</module>
 		<!-- Name classes correctly and don't use generic name for everything -->
 		<module name="IllegalIdentifierName">
-			<property name="format" value="^(?!(.*(Helper|Util))$).+$"/>
+			<property name="format" value="^(?!(.*(Helper|Util(s|ity)?))$).+$"/>
 			<property name="tokens" value=" CLASS_DEF"/>
 		</module>
 		<module name="IllegalImport"/>
@@ -146,6 +146,7 @@
 		<module name="UnnecessarySemicolonInTryWithResources"/>
 		<module name="UnusedImports"/>
 		<module name="UnusedLocalVariable"/>
+		<module name="UnusedTryResourceShouldBeUnnamed"/>
 		<module name="UpperEll"/>
 		<module name="VisibilityModifier">
 			<property name="packageAllowed" value="true"/>
